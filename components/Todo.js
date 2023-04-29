@@ -1,9 +1,9 @@
 import { StatusBar } from "expo-status-bar";
 import { Text, View, StyleSheet } from "react-native";
 
-export default function Todo({ title }) {
+export default function Todo({ title, id, deleteOneItem }) {
   return (
-    <View style={styles.item}>
+    <View onTouchEnd={() => deleteOneItem(id)} style={styles.item}>
       <Text style={styles.title}>{title}</Text>
     </View>
   );
@@ -17,9 +17,7 @@ const styles = StyleSheet.create({
   item: {
     backgroundColor: "#f9c2ff",
     padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
-    flexGrow: 1,
+    width: "100%",
   },
   title: {
     fontSize: 32,

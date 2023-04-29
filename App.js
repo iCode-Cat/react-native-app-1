@@ -25,8 +25,13 @@ export default function App() {
     setTempTodo("");
   };
 
+  const deleteOneItem = (key) => {
+    const filteredItems = todoList.filter((todo) => todo.key !== key);
+    setTodoList(filteredItems);
+  };
+
   return (
-    <TodoContext.Provider value={[todoList, setTodoList]}>
+    <TodoContext.Provider value={[todoList, setTodoList, deleteOneItem]}>
       <View style={styles.layout}>
         <View style={styles.controller}>
           <TextInput
@@ -52,6 +57,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 150,
+    width: "100%",
   },
   controller: {
     flexDirection: "row",

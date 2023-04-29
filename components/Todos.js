@@ -5,14 +5,22 @@ import Todo from "./Todo";
 import { StatusBar } from "expo-status-bar";
 
 export default function Todos() {
-  const [todoList, setTodoList] = useContext(TodoContext);
+  const [todoList, setTodoList, deleteOneItem] = useContext(TodoContext);
   return (
-    <View>
+    <View style={styles.view}>
       <SafeAreaView style={styles.container}>
         <FlatList
+          style={styles.flatList}
           data={todoList}
-          renderItem={({ item }) => <Todo title={item.title} />}
+          renderItem={({ item }) => (
+            <Todo
+              deleteOneItem={deleteOneItem}
+              title={item.title}
+              id={item.key}
+            />
+          )}
           keyExtractor={(item) => item.key}
+          ItemSeparatorComponent={() => <View style={{ height: 20 }} />}
         />
       </SafeAreaView>
     </View>
@@ -21,16 +29,18 @@ export default function Todos() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     marginTop: StatusBar.currentHeight || 0,
-  },
-  item: {
-    backgroundColor: "#f9c2ff",
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
   },
   title: {
     fontSize: 32,
+  },
+  flatList: {
+    display: "flex",
+    gap: 10,
+    padding: 20,
+  },
+  view: {
+    width: "100%",
+    height: "100%",
   },
 });
